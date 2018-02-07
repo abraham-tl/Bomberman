@@ -7,6 +7,8 @@ public class Movimiento_player : MonoBehaviour {
     public GameObject player_1;
     public float speed;
     public float speed_rotation;
+
+    public Animator anim;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,12 +17,49 @@ public class Movimiento_player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        float translation = Input.GetAxis("Vertical") * speed;
-        float rotation = Input.GetAxis("Horizontal") * speed_rotation;
-        translation *= Time.deltaTime;
-        rotation *= Time.deltaTime;
-        transform.Translate(0, 0, translation);
-        transform.Rotate(0, rotation, 0);
+       
+
+        if (Input.GetAxis ("Vertical")== 1 || Input.GetAxis("Vertical") == -1)
+        {
+            anim.SetBool("caminar", true);
+            float translation = Input.GetAxis("Vertical") * speed;
+            translation *= Time.deltaTime;
+            transform.Translate(0, 0, translation);
+        }
+        else
+        {
+            anim.SetBool("caminar", false);
+        }
+
+
+        //if (Input.GetAxis("Horizontal") != 0 )
+        //{
+            if (Input.GetAxis("Horizontal") == 1)
+            {
+                anim.SetBool("derecha", true);
+            }
+            else
+            {
+                anim.SetBool("derecha", false);
+            }
+            if (Input.GetAxis("Horizontal") == -1)
+            {
+                anim.SetBool("izquierda", true);
+            }
+            else
+            {
+                anim.SetBool("izquierda", false);
+            }
+            float rotation = Input.GetAxis("Horizontal") * speed_rotation;
+            rotation *= Time.deltaTime;
+            transform.Rotate(0, rotation, 0);
+
+        //}
+        
+
+       
+        
+        
 
     }
 }
