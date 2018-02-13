@@ -13,7 +13,7 @@ public class Denotacion : MonoBehaviour {
     public Text text_tiepo;
     public Vector3 posicion;
 
-    GameObject edificio_para_destruir;
+    //GameObject edificio_para_destruir;
 
     bool detonador;
     float tiempo; 
@@ -45,8 +45,8 @@ public class Denotacion : MonoBehaviour {
     {
         if (collision.gameObject.tag == "edificio" )
         {
-            edificio_para_destruir = collision.gameObject;
-          dispositivo.velocity = Vector3.zero;
+            //edificio_para_destruir = collision.gameObject;
+            dispositivo.velocity = Vector3.zero;
             posicion = collision.contacts[0].point;
             instalacion = true;
             detonador = true;
@@ -63,7 +63,7 @@ public class Denotacion : MonoBehaviour {
             detonador = false;
             GameObject explocion = Instantiate(efecto, posicion, Quaternion.identity);
             m_explocion = explocion.GetComponent<Explosion>();
-            m_explocion.Desactivar_edificio(edificio_para_destruir);
+            m_explocion.Desactivar_edificio();
             Destroy(explocion, 1.5f);
             Destroy(this.gameObject);
 
