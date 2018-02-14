@@ -15,6 +15,14 @@ public class Explosion : MonoBehaviour {
             {
                 edificio.gameObject.SetActive(false);
             }
+            if (edificio.tag == "Player")
+            {
+                edificio.gameObject.SetActive(false);
+            }
+            if (edificio.tag == "enemigo")
+            {
+                edificio.gameObject.SetActive(false);
+            }
         }
     }
 }

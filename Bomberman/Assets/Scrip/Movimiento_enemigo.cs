@@ -6,20 +6,51 @@ public class Movimiento_enemigo : MonoBehaviour {
     public float speed;
     public GameObject enemigo;
     public Animator ani;
-    bool aux;
-
-	// Use this for initialization
-	void Start () {
-        aux = true;
+    public Animator player;
+    Vector3 aux;
+    float otro;
+    bool rotar;
+    // Use this for initialization
+    void Start () {
+        aux = transform.position;
+        rotar = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-       
-        for (int i = 0;i <= 10;i++ )
+        otro = speed * Time.deltaTime;
+
+
+        if (rotar)
         {
-            //transform.Translate(0, 0, speed *Time .deltaTime );
+            transform.Rotate(0,180,0);
+            rotar = false;
         }
-        ani.SetBool("adelante", false);
+        else
+        {
+            //ani.SetBool("adelante", false);
+            transform.Translate(Vector3.forward * otro);
+        }
+        
 	}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject .tag == "Player" )
+        {
+            speed = 0;
+            ani.SetBool("adelante", false);
+            ani.SetBool("ataque", true);
+
+            player.SetBool("die", true);
+        }
+        else
+        {
+            if (collision.gameObject.tag != "suelo")
+            {
+                print(collision.gameObject.name);
+                rotar = true;
+            }
+        }  
+              
+    }
 }
