@@ -6,21 +6,20 @@ public class Movimiento_enemigo : MonoBehaviour {
     public float speed;
     public GameObject enemigo;
     public Animator ani;
-    public Animator player;
-    Vector3 aux;
+    public Star star;
+    
     float otro;
     bool rotar;
+    public Movimiento_player movimiento_player;
     // Use this for initialization
-    void Start () {
-        aux = transform.position;
+    void Start ()
+    {
         rotar = false;
-	}
+   	}
 	
 	// Update is called once per frame
 	void Update () {
         otro = speed * Time.deltaTime;
-
-
         if (rotar)
         {
             transform.Rotate(0,180,0);
@@ -28,10 +27,8 @@ public class Movimiento_enemigo : MonoBehaviour {
         }
         else
         {
-            //ani.SetBool("adelante", false);
             transform.Translate(Vector3.forward * otro);
-        }
-        
+        }      
 	}
     private void OnCollisionEnter(Collision collision)
     {
@@ -40,17 +37,28 @@ public class Movimiento_enemigo : MonoBehaviour {
             speed = 0;
             ani.SetBool("adelante", false);
             ani.SetBool("ataque", true);
-
-            player.SetBool("die", true);
+            star.rest_life();
+            StartCoroutine(Timer());        
         }
         else
         {
             if (collision.gameObject.tag != "suelo")
             {
-                print(collision.gameObject.name);
-                rotar = true;
+               rotar = true;
             }
-        }  
-              
+        }              
+    }
+
+    void reinicia_jugador()
+    {
+         movimiento_player.reiniciar_posicion();         
+    }
+    
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(3);
+        ani.SetBool("ataque", false);
+        ani.SetBool("adelante", true);   
+        speed = 3;
     }
 }

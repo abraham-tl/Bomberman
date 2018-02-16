@@ -5,10 +5,9 @@ using UnityEngine;
 public class Disparo : MonoBehaviour {
     public GameObject arma;
     public GameObject proyectil;
-
     public Transform inicio;
-
     public float force;
+    public Star star;
     // Use this for initialization
     void Start() {
 
@@ -24,7 +23,11 @@ public class Disparo : MonoBehaviour {
 
     void Dispara()
     {
-        GameObject bala = Instantiate(proyectil, inicio.position, inicio.rotation);
-        bala.GetComponent<Rigidbody>().AddForce(bala.transform.forward * force, ForceMode.Impulse);
+        if (star.restar_bom())
+        {
+            GameObject bala = Instantiate(proyectil, inicio.position, inicio.rotation);
+            bala.GetComponent<Rigidbody>().AddForce(bala.transform.forward * force, ForceMode.Impulse);
+        }
+      
     }
 }

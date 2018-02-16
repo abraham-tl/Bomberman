@@ -7,11 +7,13 @@ public class Movimiento_player : MonoBehaviour {
     public GameObject player_1;
     public float speed;
     public float speed_rotation;
-
     public Animator anim;
+    public Vector3 posicion_inicial;
+   
+
 	// Use this for initialization
 	void Start () {
-		
+        posicion_inicial  = player_1.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -36,8 +38,9 @@ public class Movimiento_player : MonoBehaviour {
         //{
             if (Input.GetAxis("Horizontal") == 1)
             {
-                anim.SetBool("derecha", true);
-            }
+            
+            anim.SetBool("derecha", true);
+        }
             else
             {
                 anim.SetBool("derecha", false);
@@ -55,11 +58,11 @@ public class Movimiento_player : MonoBehaviour {
             transform.Rotate(0, rotation, 0);
 
         //}
-        
+     
+    }
 
-       
-        
-        
-
+    public void reiniciar_posicion()
+    {       
+        player_1.transform.position = posicion_inicial;
     }
 }
